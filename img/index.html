@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./reset.css" />
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <!-- header -->
+      <header>
+        <!-- 로고 -->
+        <div class="logo">
+          <a href="#"><img src="./logo.png" alt="로고" /></a>
+        </div>
+        <!-- 네비 -->
+        <nav class="main-nav">
+          <ul class="mainnav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" class="btn">Download</a></li>
+          </ul>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+          <img src="./menu.svg" alt="" />
+        </div>
+      </header>
+
+      <!-- main -->
+      <main>
+        <!-- content_1 -->
+        <section class="content1">
+          <div class="main-content1">
+            <h1>
+              Lorem Ipsum is simply<br />
+              dummy text of the printing and
+            </h1>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and<br />
+              typesetting industry. <br />Lorem Ipsum has been the industry's
+              standard dummy text<br />
+              ever since the 1500s, when an unknown
+            </p>
+            <a href="#" class="btn">Download</a>
+          </div>
+          <div class="content1-image">
+            <img src="./box-cat.png" alt="상자 쓴 고양이" />
+          </div>
+        </section>
+        <!-- content_2 -->
+        <section class="content2">
+          <div class="content2-row">
+            <img src="./img_4.jpg" alt="누워있는 고양이" />
+            <div class="content2-text">
+              <h2>
+                Lorem Ipsum is simply<br />dummy text of the printing and dummy
+                text
+              </h2>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+              </p>
+            </div>
+          </div>
+          <!-- content_3 -->
+          <h2 class="content3">dummy text of the printing and dummy</h2>
+          <p class="content3-p">
+            Lorem Ipsum is simply <span>dummy text</span> of the printing and
+            typesetting industry.<br />
+            Lorem Ipsum has been the industry's standard dummy text ever since
+            the 1500s, when an unknown
+          </p>
+          <div class="image-gallery">
+            <img src="./img_1.jpg" alt="Cat image 1" />
+            <img src="./img_2.jpg" alt="Cat image 2" />
+            <img src="./img_3.jpg" alt="Cat image 3" />
+          </div>
+
+          <div class="content3-row">
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.<br />
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown <br />
+              Ipsum is simply dummy text of the printing and typesetting
+              industry.
+            </p>
+            <span>
+              <a href="#" class="btn">Learn More</a>
+            </span>
+          </div>
+        </section>
+        <!-- subscribe -->
+        <section class="subscribe">
+          <h2>Subscribe to our Blog post</h2>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry.<br />
+            Lorem Ipsum has been the industry's standard dummy text
+          </p>
+          <!-- email-form -->
+          <form id="subscribeForm">
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your e-mail address"
+              required
+            />
+            <button type="button" onclick="validateEmail()">Subscribe</button>
+          </form>
+        </section>
+      </main>
+      <!-- footer -->
+      <footer>
+        <div class="bakimg"></div>
+        <div class="footer-logo">
+          <img src="./logo.png" alt="" />
+        </div>
+        <div class="social-icons">
+          <a href="#"><img src="./blog.svg" alt="Icon 1" /></a>
+          <a href="#"><img src="./instagram.svg" alt="Icon 2" /></a>
+          <a href="#"><img src="./facebook.svg" alt="Icon 3" /></a>
+          <a href="#"><img src="./youtube.svg" alt="Icon 4" /></a>
+        </div>
+      </footer>
+      <!-- top-btn -->
+      <button id="topButton" onclick="scrollToTop()">
+        <img src="./top-btn.svg" alt="" />
+      </button>
+
+      <!-- modal -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <img src="cat-subscribe.png" alt="Cat Image" />
+          <h2>Thank you!</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing industry.</p>
+          <button id="modalButton" onclick="closeModal()">
+            OK! I Love HODU
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

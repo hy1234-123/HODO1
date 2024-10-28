@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .product-container {
+        display: flex;
+      }
+      .thumbnail {
+        width: 300px;
+        height: 300px;
+        margin-right: 20px;
+      }
+      .product-info {
+        max-width: 500px;
+      }
+      .product-info h1 {
+        margin: 0 0 10px 0;
+      }
+      .product-info p {
+        margin: 5px 0;
+      }
+      .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #d9534f;
+      }
+      .option-select {
+        margin: 10px 0;
+      }
+      .discounted-price {
+        color: #5cb85c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product-container">
+      <!-- 썸네일 이미지 -->
+      <img id="thumbnailImg" alt="상품 이미지" class="thumbnail" />
+
+      <div class="product-info">
+        <!-- 상품 이름 -->
+        <h1 id="productName"></h1>
+
+        <!-- 기본 가격 -->
+        <p>정상가: <span id="price"></span>원</p>
+
+        <!-- 할인율 -->
+        <p>할인율: <span id="discountRate"></span>%</p>
+
+        <!-- 할인된 가격 -->
+        <p>할인가: <span id="discountedPrice" class="price"></span>원</p>
+
+        <!-- 옵션 선택 -->
+        <div class="option-select">
+          <label for="optionSelect">옵션 선택:</label>
+          <select id="optionSelect">
+            <!-- 옵션 목록이 동적으로 삽입됩니다 -->
+          </select>
+        </div>
+
+        <!-- 최종 가격 -->
+        <p>최종 가격: <span id="finalPrice" class="price"></span>원</p>
+
+        <!-- 배송비 -->
+        <p>배송비: <span id="shippingFee"></span>원</p>
+
+        <!-- 재고 -->
+        <p>재고: <span id="stockCount"></span>개 남음</p>
+      </div>
+    </div>
+
+    <!-- 상세 이미지 -->
+    <div class="detail-images">
+      <h2>상세 이미지</h2>
+      <img
+        id="detailImage1"
+        alt="상세 이미지 1"
+        style="width: 100%; margin-bottom: 20px"
+      />
+      <img id="detailImage2" alt="상세 이미지 2" style="width: 100%" />
+    </div>
+
+    <script>
+      // API로부터 데이터 불러오기
+      const apiUrl = "http://35.76.53.28:8080/mall"; // 상품 API
+      const imageBaseUrl = "https://test.api.weniv.co.kr"; // 이미지 URL
+
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          const product = data[0]; // 첫 번째 상품 데이터
+
+          // 상품 정보를 화면에 표시
+          document.getElementById("productName").textContent =
+            product.productName;
+          document.getElementById("price").textContent =
+            product.price.toLocaleString();
+          document.getElementById("discountRate").textContent =
+            product.discountRate;
+          document.getElementById("shippingFee").textContent =
+            product.shippingFee.toLocaleString();
+          document.getElementById("stockCount").textContent =
+            product.stockCount;
+
+          // 썸네일 이미지 로드
+          const thumbnailImg = document.getElementById("thumbnailImg");
+          thumbnailImg.src = `${imageBaseUrl}/asset/img/${product.id}/thumbnailImg.jpg`;
+
+          // 할인 가격 계산
+          const discountedPrice =
+            product.price * (1 - product.discountRate / 100);
+          document.getElementById("discountedPrice").textContent =
+            Math.floor(discountedPrice).toLocaleString();
+
+          // 옵션 추가
+          const optionSelect = document.getElementById("optionSelect");
+          product.option.forEach((opt) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = opt.additionalFee;
+            optionElement.textContent = opt.optionName;
+            optionSelect.appendChild(optionElement);
+          });
+
+          // 상세 이미지 로드
+          document.getElementById(
+            "detailImage1"
+          ).src = `${imageBaseUrl}/${product.detailInfoImage[0]}`;
+          document.getElementById(
+            "detailImage2"
+          ).src = `${imageBaseUrl}/${product.detailInfoImage[1]}`;
+
+          // 최종 가격 계산 함수
+          function calculateFinalPrice() {
+            const selectedOptionFee = parseInt(optionSelect.value);
+            const finalPrice = discountedPrice + selectedOptionFee;
+            document.getElementById("finalPrice").textContent =
+              finalPrice.toLocaleString();
+          }
+
+          // 옵션 선택 시 최종 가격 업데이트
+          optionSelect.addEventListener("change", calculateFinalPrice);
+
+          // 페이지 로드 시 초기 가격 계산
+          calculateFinalPrice();
+        })
+        .catch((error) => {
+          console.error("API 호출 중 오류 발생:", error);
+        });
+    </script>
+  </body>
+</html>
